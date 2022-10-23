@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Image } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -10,7 +10,13 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
   return (
     <div>
       <Navbar
@@ -44,7 +50,23 @@ const Header = () => {
               </NavDropdown>
             </Nav>
             <Nav className="text-white ">
-              {user?.displayName ? user.displayName : "No User"}
+              {user?.uid ? (
+                <>
+                  <span>{user?.displayName}</span>
+                  <Button variant="danger" onClick={handleLogOut}>
+                    Log Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="success">Login</Button>
+                  </Link>
+                  <Link to="/register" className="ms-3">
+                    <Button variant="info">Register</Button>
+                  </Link>
+                </>
+              )}
               {user?.photoURL ? (
                 <Image
                   src={user?.photoURL}
