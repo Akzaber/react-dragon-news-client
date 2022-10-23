@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import { Image } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
@@ -41,11 +43,18 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Nav>
-              <Nav.Link href="#deets">{user?.displayName}</Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                Dank memes
-              </Nav.Link>
+            <Nav className="text-white ">
+              {user?.displayName ? user.displayName : "No User"}
+              {user?.photoURL ? (
+                <Image
+                  src={user?.photoURL}
+                  style={{ height: "30px" }}
+                  roundedCircle
+                  className="ms-3"
+                ></Image>
+              ) : (
+                <FaUser style={{ height: "30px" }} className="ms-3"></FaUser>
+              )}
             </Nav>
             <div className="d-lg-none">
               <LeftSideNav></LeftSideNav>

@@ -1,9 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
     <div>
-      <p><small>copy write @ 2022</small></p>
+      <p>
+        <small>copy write @ 2022</small>
+      </p>
     </div>
   );
 };
